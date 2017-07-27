@@ -35,4 +35,36 @@ class CreatePostsTest extends FeatureTestCase
 //test a user
 	   $this->see($title);
 	}
+
+// ************************//////////
+
+	//Validar cuando un usuario quiere acceder y es inivitado. 
+
+	function  test_creating_a_post_requieres_authentication()
+	{
+
+//When lo q sucede
+
+		$this->visit(route('posts.create'));
+
+/// Then
+
+		$this->seePageIs(route('login'));  
+		
+	}
+
+	function test_create_post_form_validation()
+	{
+		$this->actingAs($this->defaultUser())
+			 ->visit(route('posts.create'))
+			 ->press('Publicar')
+			 ->seePageIs(route('posts.create'))
+			 ->seeInElement('#field_title .help-block', 'El campo título es obligatorio')
+			 ->seeInElement('#field_content .help-block', 'El campo contenido es obligatorio')
+			 //Aquí intentamos iniciar sesion y dar clic en publicar sin completar ningun campo.
+
+
+	}
+
+
 }

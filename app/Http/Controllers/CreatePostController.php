@@ -17,12 +17,19 @@ class CreatePostController extends Controller
 	{
 		//$post=Post::create($request->all());
 
+		$this->validate($request,[
+
+			'title'   => 'required',
+			'content' => 'required',
+
+			]); //Validación rapida, y laravel se encarga de regresar a la pantalla anterior.
+
 		$post= new Post ($request->all()); //instanciar un nuevo post
 
 		auth()->user()->posts()->save($post);// se lo asignamos al usuario que esta conectado.
 
 
-		return $post->title;
+		return "Post: ".$post->title;
 	}
     //
 }
