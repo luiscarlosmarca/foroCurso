@@ -60,7 +60,7 @@ class CreatePostsTest extends FeatureTestCase
 			 ->press('Publicar')
 			 ->seePageIs(route('posts.create'))
 			 ->seeInElement('#field_title .help-block', 'El campo título es obligatorio')
-			 ->seeInElement('#field_content .help-block', 'El campo contenido es obligatorio')
+			 ->seeInElement('#field_content .help-block', 'El campo contenido es obligatorio');
 			 //Aquí intentamos iniciar sesion y dar clic en publicar sin completar ningun campo.
 
 
