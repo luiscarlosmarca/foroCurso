@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/posts/{post}',[
 
-Route::get('post/create',[
-	'uses' => 'CreatePostController@create',
-	'as'   => 'posts.create'
+	'as'   => 'posts.show',
+	'uses' => 'PostController@show'
+
 	]);
 
-Route::post('post/create',[
-	'uses' => 'CreatePostController@store',
-	'as'   => 'posts.store'
-	]);
+
