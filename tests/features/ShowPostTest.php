@@ -30,12 +30,29 @@ class ShowPostTest extends FeatureTestCase
     	$user->posts()->save($post); //user id al post de forma automatica
 
     	//when
-
-    	$this->visit(route('posts.show', $post))
+       
+    	$this->visit($post->url)// se modiifica para agregar la url amigable, no vamos a crear una nueva coloumna, basta con usar un atributo dinamico en el modelo post, de eloquent.
     		 ->seeInElement('h1', $post->title)
     		 ->see($post->content)
     		 ->see($post->name);
 
        
     }
+
+
+    function test_old_urls_are_redirected()// prueba de regresion
+    {
+        // Having
+        $user = $this->defaultUser();
+        $post = factory(\App\Post::class)->make([
+            'title' => 'Old title',
+        ]);
+        $user->posts()->save($post);
+        $url = $post->url;// guarda la url vieja
+        $post->update(['title' => 'New title']);//actualizar el titulo, a su vez la url.
+       
+        $this->visit($url)
+            ->seePageIs($post->url);//si trata de entrar con la url vieja, deberia de mostrar el mismo post actualizado.
+    }
+
 }

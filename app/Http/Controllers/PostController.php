@@ -7,8 +7,11 @@ use App\Post;
 
 class PostController extends Controller
 {
-    public function show(Post $post)
+    public function show(Post $post,$slug)
     {
+    	if ($post->slug != $slug) {// aqui esta la logica, la cual actualiza la url viejas por las actualizadas.
+            return redirect($post->url, 301);
+        }
     	return view('posts.show',compact('post'));
     }
 }

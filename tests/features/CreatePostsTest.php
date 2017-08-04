@@ -28,6 +28,7 @@ class CreatePostsTest extends FeatureTestCase
 	   		'content'=>$content,
 	   		'pending'=> true, 
 	   		'user_id'=> $user->id,
+	   		'slug' => 'Esta-es-una-pregunta-en-el-campo-titulo',
 
 	   	]);//nos ayuda a saber si el registro fue almacenado de forma correcta en la bd. 
 
