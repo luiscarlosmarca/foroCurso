@@ -36,7 +36,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         if($this->defaultUser){
             return $this->defaultUser; //si el usuario ya fue creado usar este, para no repetir la creacion.
         }
-        return $this->defaultUser = factory(\App\User::class)->create();
+        return $this->defaultUser = factory(\App\User::class)->create($attributes);//importante usar el attributes
     }
 
     protected function createPost(array $attributes = [])//metodo para crear post automaticos, solo pasando un titulo defino.

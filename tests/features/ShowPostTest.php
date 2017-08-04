@@ -20,12 +20,15 @@ class ShowPostTest extends FeatureTestCase
 
     	]);// crea el usuario
 
-    	$post= factory(\App\Post::class)->make([ //crea el modelo pero no lo guarda en la bd, ps se usa la pichu make
+    	$post= $this->createPost([ //crea el modelo pero no lo guarda en la bd, ps se usa la pichu make
 
         	'title'		=> 'Como instalar laravel',
-        	'content'	=> 'Este es el contenido del past'
+        	'content'	=> 'Este es el contenido del past',
+            'user_id'   => $user->id,
 
         	]);
+
+        //dd(\App\User::all()->toArray());
 
     	$user->posts()->save($post); //user id al post de forma automatica
 
@@ -34,7 +37,8 @@ class ShowPostTest extends FeatureTestCase
     	$this->visit($post->url)// se modiifica para agregar la url amigable, no vamos a crear una nueva coloumna, basta con usar un atributo dinamico en el modelo post, de eloquent.
     		 ->seeInElement('h1', $post->title)
     		 ->see($post->content)
-    		 ->see($post->name);
+    		 ->see($post->name)
+             ->see('Luis Carlos Marin');
 
        
     }
@@ -43,11 +47,11 @@ class ShowPostTest extends FeatureTestCase
     function test_old_urls_are_redirected()// prueba de regresion
     {
         // Having
-        $user = $this->defaultUser();
-        $post = factory(\App\Post::class)->make([
+        
+        $post = $this->createPost([// de esta forma creamos el post en el modelo y el base de datos. usando este metodo que esta en el testCase.php
             'title' => 'Old title',
         ]);
-        $user->posts()->save($post);
+      
         $url = $post->url;// guarda la url vieja
         $post->update(['title' => 'New title']);//actualizar el titulo, a su vez la url.
        

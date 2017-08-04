@@ -28,7 +28,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'title'   => $faker->sentence,
         'content' => $faker->paragraph,
-        'pending' => $faker->boolean()
-        
-    ];
+        'pending' => $faker->boolean(),
+        'user_id' => function () {
+            return factory(\App\User::class)->create()->id;//asginar usuario en el model factory usuando esta funcion anonima que solo se ejecuta cuando no le asigno el id_user.
+            }
+            ];
 });

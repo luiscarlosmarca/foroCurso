@@ -7,6 +7,12 @@ use App\Post;
 
 class PostController extends Controller
 {
+	public function index()
+	{
+		$posts = Post::orderBy('created_at', 'DESC')->paginate();//paginacion y orden desc
+
+        return view('posts.index', compact('posts'));
+	}
     public function show(Post $post,$slug)
     {
     	if ($post->slug != $slug) {// aqui esta la logica, la cual actualiza la url viejas por las actualizadas.
