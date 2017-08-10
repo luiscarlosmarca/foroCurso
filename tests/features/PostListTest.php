@@ -28,7 +28,7 @@ class PostListTest extends FeatureTestCase
             'title' => 'Post más antiguo',
             'created_at' => Carbon::now()->subDays(2)// crear este post con una fecha anterior para que afecte el orden desc
         ]);
-        $posts = factory(Post::class)->times(15)->create([
+        $posts = factory(Post::class)->times(15)->create([// aqui creamos 15 post con factorys.
             'created_at' => Carbon::now()->subDay()
         ]);
         $last = factory(Post::class)->create([
@@ -39,7 +39,7 @@ class PostListTest extends FeatureTestCase
         //then
         $this->visit('/')
             ->see($last->title)
-            ->dontSee($first->title)
+            ->dontSee($first->title)// no poder ver el post mas antiguo en la primera pagina  
             ->click('2')
             ->see($first->title)
             ->dontSee($last->title);
