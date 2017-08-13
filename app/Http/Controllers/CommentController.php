@@ -29,7 +29,8 @@ class CommentController extends Controller
 
 
     public function accept(Comment $comment)
-    {
+    {   //leave pass only to users that have permiss accept
+        $this->authorize('accept',$comment);// use politice acces for mark answer of comment.
         $comment->markAsAnswer();
         return redirect($comment->post->url);
     }
